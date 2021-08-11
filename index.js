@@ -1,52 +1,52 @@
 const express = require("express"),
   morgan = require("morgan");
+const path = require("path");
 
 const app = express();
 
 app.use(morgan("common"));
-app.use(express.static("public"));
 
 let topMovies = [
   {
     title: "Raya and the Last Dragon",
-    director: ["Don Hall", "Carlos Lopez Estrada"]
+    director: ["Don Hall", "Carlos Lopez Estrada"],
   },
   {
     title: "Luca",
-    director: "Enrico Casarosa"
+    director: "Enrico Casarosa",
   },
   {
     title: "Coco",
-    director: "Lee Unkrich"
+    director: "Lee Unkrich",
   },
   {
     title: "Abominable",
-    director: "Jill Culton"
+    director: "Jill Culton",
   },
   {
     title: "The Terminal",
-    director: "Steven Spielberg"
+    director: "Steven Spielberg",
   },
   {
     title: "The Intern",
-    director: "Nancy Meyers"
+    director: "Nancy Meyers",
   },
   {
     title: "The Holiday",
-    director: "Nancy Meyers"
+    director: "Nancy Meyers",
   },
   {
     title: "The Mauritanian",
-    director: "Kevin Macdonald"
+    director: "Kevin Macdonald",
   },
   {
     title: "Eat Pray Love",
-    director: "Ryan Murphy"
+    director: "Ryan Murphy",
   },
   {
     title: "Breakfast at Tiffany's",
-    director: "Blake Edwards"
-  }
+    director: "Blake Edwards",
+  },
 ];
 
 //GET Requests
@@ -63,6 +63,9 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
+
+//serves static file
+app.use("/documentation", express.static(path.join(__dirname, "public")));
 
 //listens for requests
 app.listen(8080, () => {
