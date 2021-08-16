@@ -5,25 +5,144 @@
     <titel></title>
     <meta name="viewport" content="width=device-width, 
     initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
+
   <body>
-  <h1>General  Information about the API</h1>
+    <header>
+      <h1>General  Information about the API</h1>
+    </header>
 
-<p>This is a <strong>REST</strong>(ful) <strong>API</strong> that uses <strong>HTTP request</strong> to <em>reseive,
-send, create</em> and <em>delete data</em> and <em>files</em>. <br><br>
+    <main>
+      <p>This is a <strong>REST</strong>(ful) <strong>API</strong> that uses <strong>HTTP requests</strong> to <em>receive,
+      send, create</em> and <em>delete data</em> and <em>files</em>. <br><br>
+      This API is created for an application called <strong>"myFlix"</strong>
+      that interacts with a database that stores data about 
+      different movies. The users will be able to 
+      use this application whenever they like to read
+      information about different movies or update 
+      their user information, for instance, their list of
+      favourite movies.</p> <br>
 
-This API is created for an application called <strong>"myFlix"</strong>
-that interacts with a database that stores data about 
-different movies. The users will be able to 
-use this application whenever they like to read
-information about different movies or update 
-their user information, for instance, their list of
-favourite movies. <br><br>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Business Logic</th>
+              <th>URL</th>
+              <th>HTTP Method</th>
+              <th>Request Body Data Format</th>
+              <th>Response Body Data Format</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Return a list of movies</td>
+              <td>/movies</td>
+              <td>GET</td>
+              <td>None</td>
+              <td>A JSON object holding data about all the movies</td>
+            </tr>
+            <tr>
+              <td>Return data about single movie by title</td>
+              <td>/movies/:title</td>
+              <td>GET</td>
+              <td>None</td>
+              <td>A Json object holding data about a single movie such as its description, genre, director, image URL, and whether 
+              it's featured or not. Example: <br><br>
+              {<br>
+                  title: "movieTitle", <br>
+                  description: "Lorem ipsum...", <br>
+                  genre: "movieGenre", <br>
+                  director: "movieDirector", <br>
+                  imageURL: "URL_link", <br>
+                  featured: "true/false" <br>
+                }
 
-The <strong>REST API</strong> will be accessed via <strong>HTTP methods</strong> like
-<strong>GET</strong> and <strong>POST</strong>. Similar methods <strong>(CRUD)</strong> will be used 
-to retrieve data from the database and store that data 
-in a non-relational way. </p>
+              </td>
+            </tr>
+            <tr>
+              <td>Return data about a genre by title (e.g. "Comedy").</td>
+              <td>/genres/:name</td>
+              <td>GET</td>
+              <td>None</td>
+              <td>A Json object holding data about a movie's title and its genre. Example: <br>
+              {<br>
+              title: "movieTitle", <br>
+              genre: "movieGenre" <br>
+              }
+              </td>
+            </tr>
+            <tr>
+              <td>Return data about a movie director by name</td>
+              <td>/directors/:name</td>
+              <td>GET</td>
+              <td>None</td>
+              <td>A Json object holding data about a director. Example: <br>
+              {<br>
+              name: "directorName", <br>
+              bio: "directorBio" <br>
+              }
+              </td>
+            </tr>
+            <tr>
+              <td>Allow new users to register</td>
+              <td>/users</td>
+              <td>POST</td>
+              <td>A Json object holding data about the user, structured like: <br>
+              {<br>
+              userName: "userName";<br>
+              email: "userEmail";<br>
+              password: "userPassword";
+              }
+              </td>
+              <td>A verification message that returns a Json object if request is successful, and an error message 
+              with a status code if request has failed.
+              </td>
+            </tr>
+            <tr>
+              <td>Allow existing users to update their information</td>
+              <td>/users/:username</td>
+              <td>PATCH</td>
+              <td>A Json object holding new user data. Example: <br>
+              {<br>
+              userName: "userName",
+              email: "userEmail",
+              password: "userPassword"
+              }
+              </td>
+              <td>A verification message that returns a Json object if request is successful, and an error message 
+              with a status code if request has failed.
+              </td>
+            </tr>
+            <tr>
+              <td>Allow users to add a movie to their list of "Favourites"</td>
+              <td>/users/:username/favourites/:movietitle</td>
+              <td>POST</td>
+              <td>A Json object containing information about a movie</td>
+              <td>A verification message that returns a Json object if request is successful, and an error message 
+              with a status code if request has failed.</td>
+            </tr>
+            <tr>
+              <td>Remove a movie from "Favourites"</td>
+              <td>/user/[username]/favourites/[movietitle]</td>
+              <td>DELETE</td>
+              <td>None</td>
+              <td>A verification message that returns a Json object if request is successful, and an error message 
+              with a status code if request has failed.</td>
+            </tr>
+            <tr>
+            <td>Allow users to deregister</td>
+            <td>/users/:username</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A verification message that returns a Json object if request is successful, and an error message 
+            with a status code if request has failed.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <footer></footer>
   </body>
 </html>
