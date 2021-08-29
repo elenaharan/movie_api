@@ -41,48 +41,57 @@
               <td>/movies</td>
               <td>GET</td>
               <td>None</td>
-              <td>A JSON object holding data about all the movies</td>
+              <td>A JSON object holding data about all movies
+              </td>
             </tr>
             <tr>
               <td>Return data about single movie by title</td>
-              <td>/movies/:title</td>
+              <td>/movies/:Title</td>
               <td>GET</td>
               <td>None</td>
               <td>A Json object holding data about a single movie such as its description, genre, director, image URL, and whether 
               it's featured or not. Example: <br><br>
               {<br>
-                  title: "movieTitle", <br>
-                  description: "Lorem ipsum...", <br>
-                  genre: "movieGenre", <br>
-                  director: "movieDirector", <br>
-                  imageURL: "URL_link", <br>
-                  featured: "true/false" <br>
-                }
-
+              "_id": ObjectId("Number"), <br>
+              "Title": "The Terminal",<br>
+              "Description": "The film is about an Eastern European man who...",<br>
+              "Genre": {<br>
+                "Name": "Comedy",<br>
+                "Description": "A comedy film is a category of film..."<br>
+              },<br>
+              "Director": {<br>
+                "Name": "Steven Spielberg",<br>
+                "Bio": "Steven Spielberg is an American film director, producer, and screenwriter..."<br>
+              },<br>
+              Imagepath: "https://www.imdb.com/title/tt0362227/mediaviewer/rm3088158464/?ref_=tt_ov_i",<br>
+              Featured: true<br>
+              }
               </td>
             </tr>
             <tr>
-              <td>Return data about a genre by title (e.g. "Comedy").</td>
-              <td>/genres/:name</td>
+              <td>Return data about a genre by title (e.g., "Comedy")</td>
+              <td>/genres/:genre</td>
               <td>GET</td>
               <td>None</td>
-              <td>A Json object holding data about a movie's title and its genre. Example: <br>
-              {<br>
-              title: "movieTitle", <br>
-              genre: "movieGenre" <br>
-              }
+              <td>A Json object holding data about a single genre and a corresponding film. Example: <br>
+                "Genre": <br>
+                {<br>
+                "Name": "Comedy", <br>
+                "Description": "A comedy film is a category of film in which the main emphasis is on humor..." <br>
+              }<br>
               </td>
             </tr>
             <tr>
               <td>Return data about a movie director by name</td>
-              <td>/directors/:name</td>
+              <td>/directors/:Name</td>
               <td>GET</td>
               <td>None</td>
               <td>A Json object holding data about a director. Example: <br>
+              "Director:"<br>
               {<br>
-              name: "directorName", <br>
-              bio: "directorBio" <br>
-              }
+              "Name": "Steven Spielberg", <br>
+              "Bio": "Steven Spielberg is an American film director, producer..." <br>
+              }<br>
               </td>
             </tr>
             <tr>
@@ -91,53 +100,75 @@
               <td>POST</td>
               <td>A Json object holding data about the user, structured like: <br>
               {<br>
-              userName: "userName";<br>
-              email: "userEmail";<br>
-              password: "userPassword";
+              "Username" : "bobqueen25",<br>
+              "Password" : "passwordking25",<br>
+              "Email" : "bobqueen@gmail.com",<br>
+              "Birthday" : "19/09/1991"<br>
               }
               </td>
               <td>A verification message that returns a Json object if request is successful, and an error message 
-              with a status code if request has failed.
+              with a status code if request has failed
               </td>
             </tr>
             <tr>
               <td>Allow existing users to update their information</td>
-              <td>/users/:username</td>
-              <td>PATCH</td>
+              <td>users/update/:Username</td>
+              <td>PUT</td>
               <td>A Json object holding new user data. Example: <br>
               {<br>
-              userName: "userName",
-              email: "userEmail",
-              password: "userPassword"
+              "Username": "bobking25",
+              "Password": "passwordking25",
+              "Email": "bobking@gmail.com",
+              "Birthday": 1991-09-19
               }
               </td>
               <td>A verification message that returns a Json object if request is successful, and an error message 
-              with a status code if request has failed.
+              with a status code if request has failed
               </td>
             </tr>
             <tr>
               <td>Allow users to add a movie to their list of "Favourites"</td>
-              <td>/users/:username/favourites/:movietitle</td>
+              <td>/users/:Username/movies/:MovieID</td>
               <td>POST</td>
-              <td>A Json object containing information about a movie</td>
-              <td>A verification message that returns a Json object if request is successful, and an error message 
-              with a status code if request has failed.</td>
+              <td>None</td>
+              <td>A verification message that returns an error message with a status code if request has failed and a Json object if request is successful, structured like:<br>
+              {<br>
+                "_id": "612b8f4c5a1e89e375513217",<br>
+                "Username": "juliastone",<br>
+                "Password": "juliastone1",<br>
+                "Email": "juliastone@gmail.com",<br>
+                "FavoriteMovies": [<br>
+                   "61293a2a20c07b459bdc67eb",<br>
+                   "6128e72c152a9c8e7ecca52e"<br>
+                    ],<br>
+                "__v": 0<br>
+              }<br>
+              </td>
             </tr>
             <tr>
               <td>Remove a movie from "Favourites"</td>
-              <td>/user/[username]/favourites/[movietitle]</td>
+              <td>/users/:Username/movies/:MovieID</td>
               <td>DELETE</td>
               <td>None</td>
-              <td>A verification message that returns a Json object if request is successful, and an error message 
-              with a status code if request has failed.</td>
+              <td>A verification message that returns an error message with a status code if request has failed and a Json object if request is successful, structured like:<br>
+              {<br>
+                "_id": "612b8f4c5a1e89e375513217",<br>
+                "Username": "juliastone",<br>
+                "Password": "juliastone1",<br>
+                "Email": "juliastone@gmail.com",<br>
+                "FavoriteMovies": [<br>
+                  "6128e72c152a9c8e7ecca52e"<br>
+                  ],<br>
+                "__v": 0<br>
+              }<br>
+              </td>
             </tr>
             <tr>
             <td>Allow users to deregister</td>
-            <td>/users/:username</td>
+            <td>/users/:Username</td>
             <td>DELETE</td>
             <td>None</td>
-            <td>A verification message that returns a Json object if request is successful, and an error message 
-            with a status code if request has failed.</td>
+            <td>A verification message indicating that the user was deregistered and an error message if request has failed</td>
             </tr>
           </tbody>
         </table>
