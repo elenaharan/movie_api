@@ -246,10 +246,15 @@ app.delete(
   }
 );
 
+//Welcome page
+app.get("/home", (req, res) =>{
+  res.send("Welcome to my movie API!<br><a href=\"/documentation.html\">Docs</a>");
+});
+
 //serves static file
 app.use("/index", express.static(path.join(__dirname, "public")));
 
 //listens for requests
-app.listen(port, '0.0.0.0.',() => {
-  console.log('Your app is listening on Port ' + port);
+app.listen(port, () => {
+  console.log(`Your app is listening on port ${port}`);
 });
