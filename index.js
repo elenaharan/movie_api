@@ -248,7 +248,7 @@ app.delete(
 
 //Welcome page
 app.get("/home", (req, res) =>{
-  res.send("Welcome to my movie API!<br><a href=\"/documentation.html\">Docs</a>");
+  res.send("Welcome to my movie API!");
 });
 
 //serves static file
