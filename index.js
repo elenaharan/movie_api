@@ -247,7 +247,7 @@ app.delete(
 );
 
 //Welcome page
-app.get("/home", (req, res) =>{
+app.get("/", (req, res) =>{
   res.send("Welcome to my movie API!");
 });
 
