@@ -250,6 +250,6 @@ app.delete(
 app.use("/index", express.static(path.join(__dirname, "public")));
 
 //listens for requests
-app.listen(port, () => {
-  console.log(`Your app is listening on port ${port}`);
+app.listen(port, '0.0.0.0.',() => {
+  console.log('Your app is listening on Port ' + port);
 });
