@@ -5,10 +5,6 @@ const express = require("express"),
 const mongoose = require("mongoose");
 const Models = require("./database/models");
 const app = express();
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 const { check, validationResult } = require('express-validator');
 
