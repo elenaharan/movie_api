@@ -2,19 +2,21 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid"),
   morgan = require("morgan");
+
+const { check, validationResult } = require('express-validator');
+
 const mongoose = require("mongoose");
 const Models = require("./database/models");
 const app = express();
 
-const { check, validationResult } = require('express-validator');
-
 const Movies = Models.Movie;
 const Users = Models.User;
 
-/*mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewURLParser: tru, useUnifiedTopology: true});*/
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewURLParser: true, useUnifiedTopology: true});
 
-mongoose.connect(process.env.CONNECTION_URI, {useNewURLParser: true, useUnifiedTopology: true});
+/*mongoose.connect(process.env.CONNECTION_URI, {useNewURLParser: true, useUnifiedTopology: true});*/
 
+//Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -30,6 +32,8 @@ const port = process.env.PORT || 8080;
 
 app.use(morgan("common"));
 app.use(express.static("public"));
+
+//API Requests
 
 //Returns ALL movies to the user
 app.get(
@@ -66,6 +70,7 @@ app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log(req.params, 'movie request')
     Movies.findOne({ Title: req.params.Title })
       .then((movies) => {
         res.json(movies);
@@ -121,7 +126,7 @@ app.post("/users",
   let errors = validationResult(req);
 
   if(!errors.isEmpty()) {
-    return res.status(422).json({errors:array()});
+    return res.status(422).json({errors: errors.array()});
   }
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
@@ -253,6 +258,11 @@ app.get("/home", (req, res) =>{
 
 //serves static file
 app.use("/index", express.static(path.join(__dirname, "public")));
+
+//Error-inadling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+});
 
 //listens for requests
 app.listen(port, () => {
