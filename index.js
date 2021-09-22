@@ -38,14 +38,14 @@ app.use(express.static("public"));
 //Returns ALL movies to the user
 app.get(
   "/movies",
-  /*passport.authenticate("jwt", { session: false }),*/
-  (req, res) => {
+  passport.authenticate("jwt", { session: false }),
+  function (req, res) {
     Movies.find()
-      .then((movies) => {
+      .then(function (movies) {
         res.status(200).json(movies);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(function (error) {
+        console.error(error);
         res.status(500).send("Error: " + err);
       });
   }
