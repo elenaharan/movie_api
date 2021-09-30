@@ -70,8 +70,8 @@ app.get("/users/profile/:Username", passport.authenticate("jwt", {session: false
 (req, res) => {
   console.log(req.params, 'profile request')
   Users.findOne({ Username: req.params.Username })
-  .then((users) => {
-    res.json(users);
+  .then((user) => {
+    res.json(user);
   })
   .catch((err) => {
     console.error(err);
