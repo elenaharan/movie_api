@@ -66,7 +66,7 @@ app.get("/users", passport.authenticate("jwt", { session: false }),
 );
 
 //Get a single user
-app.get("/users/:Username", passport.authenticate("jwt", {session: false}),
+app.get("/users/profile/:Username", passport.authenticate("jwt", {session: false}),
 (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .then((user) => {
