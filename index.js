@@ -184,7 +184,7 @@ app.post(
 
 //Updates user info
 app.put(
-  "/users/update/:Username",
+  "/users/update/:User",
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     /*check(
