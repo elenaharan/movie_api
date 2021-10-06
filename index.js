@@ -187,14 +187,14 @@ app.put(
   "/users/update/:Username",
   [
     check("Username", "Username is required").isLength({ min: 5 }),
-    check(
+    /*check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
+    ).isAlphanumeric(),*/
     check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
-  //passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let errors = validationResult(req);
 
