@@ -72,7 +72,7 @@ app.get(
 
 //Get a single user
 app.get(
-  "/users/profile/:Username",
+  "/users/profile/user",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     console.log(req.params, "profile request");
@@ -160,6 +160,7 @@ app.post(
         if (user) {
           return res.status(409).send(req.body.Username + " already exists");
         } else {
+          console.log("request", req.body);
           Users.create({
             Username: req.body.Username,
             Password: hashedPassword,
@@ -296,7 +297,7 @@ app.get("/home", (req, res) => {
 //serves static file
 app.use("/index", express.static(path.join(__dirname, "public")));
 
-//Error-inadling
+//Error-Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
 });
