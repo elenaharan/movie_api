@@ -36,9 +36,17 @@ const port = process.env.PORT || 8080;
 app.use(morgan("common"));
 app.use(express.static("public"));
 
-//API Requests
 
-//Returns ALL movies to the user
+/**
+ * The following are API requests containing API endpoint
+ */
+
+/**
+ * Returns all movies to the user
+ * Endpoint url/movies
+ * @method GET
+ * @returns an array of all movies from the DB
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -54,7 +62,13 @@ app.get(
   }
 );
 
-//GET Users
+
+/**
+ * Returns all users from the DB
+ * Endpoint url/users
+ * @method GET
+ * @returns array of all users in the DB
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -70,7 +84,13 @@ app.get(
   }
 );
 
-//Get a single user
+
+/**
+ * Returns info about a single user
+ * Endpoint url/users/profile/username
+ * @method GET
+ * @returns {object} returns data on a specific user
+ */
 app.get(
   "/users/profile/user",
   passport.authenticate("jwt", { session: false }),
@@ -87,7 +107,14 @@ app.get(
   }
 );
 
-//This function returns a single movie by title
+
+/**
+ * Returns a single movie by title
+ * Endpoint url/movies/:Title
+ * @method GET
+ * @returns {object} - returns a single movie
+ * @param {string} - title of a movie
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -104,7 +131,15 @@ app.get(
   }
 );
 
-//Returns data about a genre by name (e.g., "Comedy")
+
+/**
+ * Returns info about a genre by its name
+ * Endpoint url/genres/:genre
+ * @method GET
+ * @param {string} Name - name of a specific genre
+ * @returns {object} returns info about genre's name and description
+ * 
+ */
 app.get(
   "/genres/:genre",
   passport.authenticate("jwt", { session: false }),
@@ -120,7 +155,14 @@ app.get(
   }
 );
 
-//Returns data about a director by name
+
+/**
+ * Returns data about a director by name
+ * Endpoint url/directors/:Name
+ * @method GET
+ * @param {string} Name - name of a director
+ * @returns {object} - info on a specific director (name, bio)
+ */
 app.get(
   "/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -136,7 +178,17 @@ app.get(
   }
 );
 
-//This function allows new users to register
+
+/**
+ * This function allows new users to register
+ * Endpoint url/users
+ * @method POST
+ * @param {string} Username 
+ * @param {string} Password
+ * @param {string} Email
+ * @returns {object} new user
+ * 
+ */
 app.post(
   "/users",
   [
@@ -183,7 +235,13 @@ app.post(
   }
 );
 
-//Updates user info
+
+/**
+ * Updates user info
+ * Endpoint url/users/update
+ * @method PUT 
+ * @param Username, Password, Email, Birthday
+ */
 app.put(
   "/users/update/:user",
   [
@@ -227,7 +285,15 @@ app.put(
   }
 );
 
-//Adds a movie to a user's list of favorites
+
+/**
+ * Adds a movie to a user's list of favorites
+ * Endpoint url/users/:username/movies/:movieId
+ * @method POST 
+ * @param {string} User's username
+ * @param movie {string} id
+ * @returns {string} success/error message
+ */
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -248,7 +314,15 @@ app.post(
   }
 );
 
-//Removes a movie from user's list of favorites
+
+/**
+ * Removes a movie from user's list of favorites
+ * Endpoint url/users/:Username/movies/:movieId
+ * @method DELETE 
+ * @param {string} user's username
+ * @param {string} movie id
+ * @returns {string} success/error message
+ */
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -269,7 +343,14 @@ app.delete(
   }
 );
 
-//Allows existing users to deregister
+
+/**
+ * Allows existing users to deregister
+ * Endpoint url/users/:username
+ * @method DELETE 
+ * @param {string} username 
+ * @returns {string} error/success message
+ */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -289,20 +370,35 @@ app.delete(
   }
 );
 
-//Welcome page
+
+/**
+ * Returns welcome page
+ * Endpoint url/home
+ * @method GET
+ * @returns {object} returns welcome page
+ */
 app.get("/home", (req, res) => {
   res.send("Welcome to my movie API!");
 });
 
-//serves static file
+
+/**
+ *serves static file 
+ */
 app.use("/index", express.static(path.join(__dirname, "public")));
 
-//Error-Handling
+
+/**
+ * Error-Handling
+ */
 app.use((err, req, res, next) => {
   console.error(err.stack);
 });
 
-//listens for requests
+
+/**
+ *listens for requests 
+ */
 app.listen(port, () => {
   console.log(`Your app is listening on port ${port}`);
 });
